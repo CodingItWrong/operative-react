@@ -1,7 +1,7 @@
 {
   "name": "operative-react",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Josh Justice <me@joshjustice.com>",
   "license": "MIT",
   "scripts": {
