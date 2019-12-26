@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from 'react'
-import Operative from 'operative-client'
+import { useState, useCallback, useEffect } from 'react';
+import Operative from 'operative-client';
 
 const useOperative = ({
   httpClient,
@@ -7,8 +7,8 @@ const useOperative = ({
   handleOutOfOrder,
   persister,
 }) => {
-  const [operative, setOperative] = useState(null)
-  const [records, setRecords] = useState([])
+  const [operative, setOperative] = useState(null);
+  const [records, setRecords] = useState([]);
 
   useEffect(() => {
     Operative.create({
@@ -18,36 +18,36 @@ const useOperative = ({
       persister,
       onChange: setRecords,
     }).then(newOperative => {
-      setOperative(newOperative)
-    })
-  }, [httpClient, webSocket, handleOutOfOrder, persister])
+      setOperative(newOperative);
+    });
+  }, [httpClient, webSocket, handleOutOfOrder, persister]);
 
-  const ready = operative !== null
+  const ready = operative !== null;
 
   const create = useCallback(attributes => operative.create(attributes), [
     operative,
-  ])
+  ]);
 
   const update = useCallback(
     (record, attributes) => operative.update(record, attributes),
     [operative]
-  )
+  );
 
   const destroy = useCallback(
     recordToDelete => operative.delete(recordToDelete),
     [operative]
-  )
+  );
 
-  const sync = useCallback(() => operative.sync(), [operative])
+  const sync = useCallback(() => operative.sync(), [operative]);
 
   useEffect(() => {
     if (ready) {
-      setRecords(operative.records)
-      operative.loadAll()
+      setRecords(operative.records);
+      operative.loadAll();
     }
-  }, [ready, operative])
+  }, [ready, operative]);
 
-  return { ready, records, create, update, destroy, sync }
-}
+  return { ready, records, create, update, destroy, sync };
+};
 
-export { useOperative }
+export { useOperative };
